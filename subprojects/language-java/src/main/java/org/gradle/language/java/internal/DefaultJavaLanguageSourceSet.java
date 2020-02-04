@@ -15,6 +15,7 @@
  */
 package org.gradle.language.java.internal;
 
+import org.gradle.api.file.ProjectLayout;
 import org.gradle.jvm.Classpath;
 import org.gradle.language.base.sources.BaseLanguageSourceSet;
 import org.gradle.language.java.JavaSourceSet;
@@ -23,8 +24,12 @@ import org.gradle.platform.base.DependencySpecContainer;
 import org.gradle.platform.base.internal.DefaultDependencySpecContainer;
 
 public class DefaultJavaLanguageSourceSet extends BaseLanguageSourceSet implements JavaSourceSet {
-    private final Classpath emptyClasspath = new EmptyClasspath();
+    private final Classpath emptyClasspath;
     private final DefaultDependencySpecContainer dependencies = new DefaultDependencySpecContainer();
+
+    public DefaultJavaLanguageSourceSet(ProjectLayout projectLayout) {
+        emptyClasspath = new EmptyClasspath(projectLayout);
+    }
 
     @Override
     public Classpath getCompileClasspath() {

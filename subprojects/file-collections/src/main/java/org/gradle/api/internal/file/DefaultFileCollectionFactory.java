@@ -25,6 +25,7 @@ import org.gradle.api.internal.file.collections.DefaultConfigurableFileTree;
 import org.gradle.api.internal.file.collections.DirectoryFileTreeFactory;
 import org.gradle.api.internal.file.collections.FileCollectionAdapter;
 import org.gradle.api.internal.file.collections.FileCollectionResolveContext;
+import org.gradle.api.internal.file.collections.ImmutableFileCollection;
 import org.gradle.api.internal.file.collections.MinimalFileSet;
 import org.gradle.api.internal.file.collections.UnpackingVisitor;
 import org.gradle.api.internal.tasks.TaskDependencyFactory;
@@ -108,6 +109,9 @@ public class DefaultFileCollectionFactory implements FileCollectionFactory {
 
     @Override
     public FileCollectionInternal resolving(Object... sources) {
+        if (sources.length == 0) {
+            return ImmutableFileCollection.of();
+        }
         if (sources.length == 1 && sources[0] instanceof FileCollectionInternal) {
             return (FileCollectionInternal) sources[0];
         }
