@@ -67,6 +67,18 @@ class ProjectCacheDirTest extends Specification implements VersionSpecificCacheC
         newerCacheDir.assertExists()
     }
 
+    def "ensures cache is writable"() {
+        given:
+        def cacheDir = temporaryFolder.createDir(".unwritable-cache")
+        cacheDir.setPermissions("r-xr-xr-x")
+
+        when:
+        new ProjectCacheDir(cacheDir, progressLoggerFactory, deleter)
+
+        then:
+        thrown IllegalStateException
+    }
+
     @Override
     TestFile getCachesDir() {
         return cacheDir

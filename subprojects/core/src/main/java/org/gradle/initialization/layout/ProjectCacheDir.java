@@ -34,6 +34,9 @@ public class ProjectCacheDir implements Stoppable {
     private final Deleter deleter;
 
     public ProjectCacheDir(File dir, ProgressLoggerFactory progressLoggerFactory, Deleter deleter) {
+        if (!dir.canWrite()) {
+            throw new IllegalStateException(String.format("Can not write to project cache directory '%s'", dir));
+        }
         this.dir = dir;
         this.progressLoggerFactory = progressLoggerFactory;
         this.deleter = deleter;

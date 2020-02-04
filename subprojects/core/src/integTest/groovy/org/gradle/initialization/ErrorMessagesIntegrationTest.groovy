@@ -48,7 +48,7 @@ class ErrorMessagesIntegrationTest extends AbstractIntegrationSpec {
             "\n" +
             "* What went wrong:\n" +
             "Gradle could not start your build.\n" +
-            "> Failed to create directory '${localGradleCache}/checksums'")
+            "> Can not write to project cache directory '${localGradleCache}'")
     }
 
     @Requires(TestPrecondition.NOT_WINDOWS)
